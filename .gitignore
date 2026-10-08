@@ -1,0 +1,33 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Build artifacts and logs
+/tmp/
+/bin/
+*.log
+*.test
+*.out
+
+# Coverage and profiles
+coverage.out
+coverage.html
+coverprofile.out
+*.prof
+
+# IDEs and operating systems
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Local tooling
+.slim/deepwork/
+Sperium.http

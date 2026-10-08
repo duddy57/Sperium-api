@@ -1,0 +1,65 @@
+version: "2"
+
+sql:
+  - name: "users"
+    engine: "postgresql"
+    schema:
+      - "./migrations/00001_table_users.sql"
+      - "./migrations/00002_table_organizations.sql"
+      - "./migrations/00003_table_members.sql"
+    queries: "internal/users/queries/"
+    gen:
+      go:
+        package: "usersRepo"
+        out: "internal/users/queries/"
+        sql_package: "pgx/v5"
+        overrides:
+          - db_type: "uuid"
+            go_type:
+              import: "uuid"
+              type: "UUID"
+          - db_type: "timestamptz"
+            go_type:
+              import: "time"
+              type: "Time"
+  - name: "organizations"
+    engine: "postgresql"
+    schema:
+      - "./migrations/00001_table_users.sql"
+      - "./migrations/00002_table_organizations.sql"
+      - "./migrations/00003_table_members.sql"
+    queries: "internal/organizations/queries/"
+    gen:
+      go:
+        package: "organizationsRepo"
+        out: "internal/organizations/queries/"
+        sql_package: "pgx/v5"
+        overrides:
+          - db_type: "uuid"
+            go_type:
+              import: "uuid"
+              type: "UUID"
+          - db_type: "timestamptz"
+            go_type:
+              import: "time"
+              type: "Time"
+  - name: "machines"
+    engine: "postgresql"
+    schema:
+      - "./migrations/00002_table_organizations.sql"
+      - "./migrations/00004_table_machines.sql"
+    queries: "internal/machines/queries/"
+    gen:
+      go:
+        package: "machinesRepo"
+        out: "internal/machines/queries/"
+        sql_package: "pgx/v5"
+        overrides:
+          - db_type: "uuid"
+            go_type:
+              import: "uuid"
+              type: "UUID"
+          - db_type: "timestamptz"
+            go_type:
+              import: "time"
+              type: "Time"

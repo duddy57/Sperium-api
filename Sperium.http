@@ -1,0 +1,50 @@
+
+@orgId = 59b784ab-0ce3-4771-bac0-872dedd39dff
+@machineId = 6bade273-30b7-44c4-bc66-6aba08594d04
+
+### GET request to example server
+GET http://localhost:8080/health
+
+###
+POST localhost:8080/api/users/create
+Content-Type: application/json
+
+{
+  "name": "User de teste",
+  "email": "teste@gmail.com",
+  "password":"12345678"
+}
+###
+
+POST localhost:8080/api/organizations/create
+Content-Type: application/json
+
+{
+  "name": "Empresa XPTO",
+  "domain": "empresa.xpto"
+}
+
+###
+POST http://localhost:8080/api/machines/{{orgId}}/create
+Content-Type: application/json
+
+{
+  "name": "prod-01"
+}
+
+
+###
+PUT http://localhost:8080/api/machines/{{orgId}}/activate/{{machineId}}
+Content-Type: application/json
+
+{
+  "token": "AV3vTLG8uOAImFB5pF6uVfzQRaQ8x9WQO7pZpp5wjb4",
+  "hostname":"duddy-omarchy",
+  "agent_version": "1.0.1"
+}
+
+###
+GET http://localhost:8080/api/machines/{{orgId}}/list
+
+###
+GET http://localhost:8080/api/machines/{{orgId}}/details/{{machineId}}

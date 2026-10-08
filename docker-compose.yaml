@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: sperium-postgres
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-sperium_db}
+      POSTGRES_USER: ${DATABASE_USER:-sperium}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-sperium}
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:7-alpine
+    container_name: sperium-redis
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    command: >-
+      sh -c 'if [ -n "$$REDIS_PASSWORD" ]; then
+      exec redis-server --requirepass "$$REDIS_PASSWORD";
+      else
+      exec redis-server;
+      fi'
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
